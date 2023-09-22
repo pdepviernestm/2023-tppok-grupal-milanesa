@@ -1,0 +1,57 @@
+import pokemon.*
+
+describe "tests pokemon"{
+	
+test "Red agrega pokemones a su equipo" {
+    red.capturar(ratatta)
+    assert.that(red.equipo().contains(ratatta))
+}
+
+test "El poder de red aumenta correctamente" {
+    assert.equals(0, red.poder())
+    red.capturar(ratatta)
+    assert.equals(1500, red.poder())
+}
+
+test "Red captura los pokemones que le convienen" {
+    const pokemonesConvenientes = [ratatta, machop, dragonite, snorlax]
+    red.reclutarPokemonesConvenientes()
+    assert.equals(pokemonesConvenientes, red.equipo())
+}
+
+test "Red entrena a sus pokemones y su poder aumenta"{
+	red.reclutarPokemonesConvenientes()
+	assert.equals(red.poder(), 11500)
+	red.entrenar()
+	assert.equals(red.poder(), 16100)
+}
+
+test "red gana la liga si tiene un buen equipo"{
+	red.reclutarPokemonesConvenientes()
+	assert.that(red.ganaraLaLiga())
+	red.abandonarPokemonMasDebil()
+	red.abandonarPokemonMasDebil()
+	red.abandonarPokemonMasDebil()
+	assert.that(not red.ganaraLaLiga())
+}
+
+test "amigos del blue" {
+    blue.amigos().add(ratatta)
+    blue.amigos().add(dragonite)
+    blue.amigos().add(snorlax)
+    assert.equals(200, blue.poder())
+}
+
+test "Red abandona su pokemon mas debil" {
+    red.capturar(ratatta)
+    red.capturar(dragonite)
+    assert.that(red.equipo().contains(ratatta) && red.equipo().contains(dragonite))
+    red.abandonarPokemonMasDebil()
+    assert.that(not red.equipo().contains(ratatta))
+}
+}
+
+
+
+
+
